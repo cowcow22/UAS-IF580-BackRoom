@@ -1,6 +1,3 @@
-// Coded by Developer Jake -- https://www.youtube.com/developerjake
-// Follow the Backrooms Game Lab (Part 7) to understand what this is for
-
 using UnityEngine;
 
 public class KeyDoor : MonoBehaviour // This script should be on the Locked Door Trigger
