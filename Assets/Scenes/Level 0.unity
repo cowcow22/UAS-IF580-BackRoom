@@ -11673,6 +11673,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 985079455}
   - {fileID: 842975519}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -21202,7 +21203,6 @@ Transform:
   - {fileID: 1771656992}
   - {fileID: 355978863}
   - {fileID: 547358592}
-  - {fileID: 985079455}
   m_Father: {fileID: 461009545}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &844305078
@@ -26277,7 +26277,7 @@ GameObject:
   - component: {fileID: 985079455}
   - component: {fileID: 985079456}
   m_Layer: 0
-  m_Name: BacksoundLvl1
+  m_Name: BacksoundLvl0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26291,12 +26291,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 985079454}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.28, y: 0, z: 1.347}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.2799997, y: 0, z: 1.3470002}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 842975519}
+  m_Father: {fileID: 461009545}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &985079456
 AudioSource:
@@ -26312,7 +26312,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
