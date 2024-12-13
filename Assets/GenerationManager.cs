@@ -23,8 +23,8 @@ public class GenerationManager : MonoBehaviour
     [SerializeField] List<GameObject> RoomTypes;
     [SerializeField] List<GameObject> LightTypes;
     [SerializeField] int mapSize = 16; // Size of the map
-    [SerializeField] Slider MapSizeSlider, EmptinessSlider, BrightnessSlider;
-    [SerializeField] Button GenerateButton;
+    // [SerializeField] Slider MapSizeSlider, EmptinessSlider, BrightnessSlider;
+    // [SerializeField] Button GenerateButton;
     [SerializeField] GameObject E_Room;
     [SerializeField] GameObject B_Room;
     [SerializeField] GameObject SpawnRoom, ExitRoom;
@@ -44,15 +44,26 @@ public class GenerationManager : MonoBehaviour
 
     private void Update()
     {
-        mapSize = (int)Mathf.Pow(MapSizeSlider.value, 4);
+        mapSize = (int)Mathf.Pow(4, 4);
         mapSizeSquare = (int)Mathf.Sqrt(mapSize);
-        mapEmptiness = (int)EmptinessSlider.value;
-        mapBrightness = (int)BrightnessSlider.value;
+        mapEmptiness = (int)9;
+        mapBrightness = (int)4;
     }
 
     public void ReloadWorld() // Reload the world to generate a new one
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    void Start()
+    {
+        mapSize = (int)Mathf.Pow(4, 4);
+        mapSizeSquare = (int)Mathf.Sqrt(mapSize);
+        mapEmptiness = (int)9;
+        mapBrightness = (int)4;
+        GenerateWorld();
+
+        SpawnPlayer();
     }
 
     public void GenerateWorld() // Generate the world
@@ -61,7 +72,7 @@ public class GenerationManager : MonoBehaviour
         {
             RoomTypes.Add(E_Room);
         }
-        GenerateButton.interactable = false;
+        // GenerateButton.interactable = false;
 
         for (int state = 0; state < 6; state++)
         {
