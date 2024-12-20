@@ -159,7 +159,7 @@ public class GenerationManager : MonoBehaviour
     {
         PlayerObject.SetActive(false);
 
-        PlayerObject.transform.position = new Vector3(spawnRoom.transform.position.x, 1.8f, spawnRoom.transform.position.z);
+        PlayerObject.transform.position = new Vector3(18.42f, 1.8f, 101.99f);
 
         DoggyObject.transform.position = new Vector3(exitRoom.transform.position.x, 1.8f, exitRoom.transform.position.z);
         DoggyObject.SetActive(true);
