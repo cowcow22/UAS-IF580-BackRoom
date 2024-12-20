@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-
+using UnityEngine.AI; // Add this line
+using Unity.AI.Navigation;
 public enum GenerationState
 {
     Idle,
@@ -13,9 +14,9 @@ public enum GenerationState
     GeneratingSpawn,
     GeneratingExit,
 
-    GeneratingBarrier
+    GeneratingBarrier,
+    BakingNavMesh // Add this state
 }
-
 public class GenerationManager : MonoBehaviour
 {
     [Header("References")]
@@ -28,8 +29,11 @@ public class GenerationManager : MonoBehaviour
     [SerializeField] GameObject E_Room;
     [SerializeField] GameObject B_Room;
     [SerializeField] GameObject SpawnRoom, ExitRoom;
+    [SerializeField] NavMeshSurface navMeshSurface; // Add this line
+    [SerializeField] GameObject DoggyObject;
     public List<GameObject> GeneratedRooms;
     [SerializeField] GameObject PlayerObject, MainCameraObject;
+
 
     [Header("Settings")]
     public int mapEmptiness;
@@ -74,7 +78,7 @@ public class GenerationManager : MonoBehaviour
         }
         // GenerateButton.interactable = false;
 
-        for (int state = 0; state < 6; state++)
+        for (int state = 0; state < 7; state++)
         {
             for (int i = 0; i < mapSize; i++)
             {
@@ -117,7 +121,7 @@ public class GenerationManager : MonoBehaviour
                 case GenerationState.GeneratingExit:
 
                     int roomToReplace = Random.Range(0, GeneratedRooms.Count);
-                    GameObject exitRoom = Instantiate(ExitRoom, GeneratedRooms[roomToReplace].transform.position, Quaternion.identity, WorldGrid);
+                    exitRoom = Instantiate(ExitRoom, GeneratedRooms[roomToReplace].transform.position, Quaternion.identity, WorldGrid);
 
                     Destroy(GeneratedRooms[roomToReplace]);
 
@@ -133,6 +137,15 @@ public class GenerationManager : MonoBehaviour
 
                     GeneratedRooms[_roomToReplace] = spawnRoom;
                     break;
+
+                case GenerationState.BakingNavMesh:
+                    // Set layer mask to only include "Navmesh" layer
+                    int navMeshLayer = LayerMask.NameToLayer("Navmesh");
+                    navMeshSurface.layerMask = 1 << navMeshLayer;
+
+                    // Bake the NavMesh
+                    navMeshSurface.BuildNavMesh();
+                    break;
             }
 
 
@@ -140,6 +153,7 @@ public class GenerationManager : MonoBehaviour
     }
 
     public GameObject spawnRoom;
+    public GameObject exitRoom;
 
     public void SpawnPlayer()
     {
@@ -147,6 +161,8 @@ public class GenerationManager : MonoBehaviour
 
         PlayerObject.transform.position = new Vector3(spawnRoom.transform.position.x, 1.8f, spawnRoom.transform.position.z);
 
+        DoggyObject.transform.position = new Vector3(exitRoom.transform.position.x, 1.8f, exitRoom.transform.position.z);
+        DoggyObject.SetActive(true);
 
         PlayerObject.SetActive(true);
         MainCameraObject.SetActive(false);
