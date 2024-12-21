@@ -30,7 +30,7 @@ public class GenerationManager : MonoBehaviour
     [SerializeField] GameObject B_Room;
     [SerializeField] GameObject SpawnRoom, ExitRoom;
     [SerializeField] NavMeshSurface navMeshSurface; // Add this line
-    [SerializeField] GameObject DoggyObject, PeanutObject;
+    [SerializeField] GameObject DoggyObject, PeanutObject, SCP096;
     public List<GameObject> GeneratedRooms;
     [SerializeField] GameObject PlayerObject, MainCameraObject;
 
@@ -159,12 +159,17 @@ public class GenerationManager : MonoBehaviour
     {
         PlayerObject.SetActive(false);
 
-        PlayerObject.transform.position = new Vector3(18.42f, 1.8f, 101.99f);
+        PlayerObject.transform.position = new Vector3(spawnRoom.transform.position.x, 1.8f, spawnRoom.transform.position.z);
+
+        int peanutSpawnRoom = Random.Range(0, GeneratedRooms.Count);
+        int scp096SpawnRoom = Random.Range(0, GeneratedRooms.Count);
 
         DoggyObject.transform.position = new Vector3(exitRoom.transform.position.x, 1.8f, exitRoom.transform.position.z);
         DoggyObject.SetActive(true);
-        PeanutObject.transform.position = new Vector3(exitRoom.transform.position.x, 1.8f, exitRoom.transform.position.z);
+        PeanutObject.transform.position = new Vector3(GeneratedRooms[peanutSpawnRoom].transform.position.x, 1.8f, GeneratedRooms[peanutSpawnRoom].transform.position.z);
         PeanutObject.SetActive(true);
+        SCP096.transform.position = new Vector3(GeneratedRooms[scp096SpawnRoom].transform.position.x, 1.8f, GeneratedRooms[scp096SpawnRoom].transform.position.z);
+        SCP096.SetActive(true);
 
         PlayerObject.SetActive(true);
         MainCameraObject.SetActive(false);
