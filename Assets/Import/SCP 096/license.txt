@@ -1,0 +1,11 @@
+Model Information:
+* title:	Smoother SCP-096 Anims
+* source:	https://sketchfab.com/3d-models/smoother-scp-096-anims-b09d77cf7b5248c6a9445853daf06bf2
+* author:	Sealife Fan 3 (https://sketchfab.com/SealifeFan3)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Smoother SCP-096 Anims" (https://sketchfab.com/3d-models/smoother-scp-096-anims-b09d77cf7b5248c6a9445853daf06bf2) by Sealife Fan 3 (https://sketchfab.com/SealifeFan3) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
