@@ -29,6 +29,7 @@ public class FlashLightManager : MonoBehaviour
     {
         currentBattery = startBattery; // Set the current battery to the start battery
         InvokeRepeating(nameof(LoseBattery), 0, batteryDrainRate); // Start draining the battery
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()

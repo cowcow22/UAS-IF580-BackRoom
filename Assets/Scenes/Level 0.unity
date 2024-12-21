@@ -5972,6 +5972,46 @@ PrefabInstance:
       propertyPath: m_Name
       value: Book
       objectReference: {fileID: 0}
+    - target: {fileID: 8631274959731401907, guid: d5ccc9f061d086d4cb8d7fc9d7fc6e95,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 8631274959731401907, guid: d5ccc9f061d086d4cb8d7fc9d7fc6e95,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.70710677
+      objectReference: {fileID: 0}
+    - target: {fileID: 8631274959731401907, guid: d5ccc9f061d086d4cb8d7fc9d7fc6e95,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.70710677
+      objectReference: {fileID: 0}
+    - target: {fileID: 8631274959731401907, guid: d5ccc9f061d086d4cb8d7fc9d7fc6e95,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8631274959731401907, guid: d5ccc9f061d086d4cb8d7fc9d7fc6e95,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8631274959731401907, guid: d5ccc9f061d086d4cb8d7fc9d7fc6e95,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 8631274959731401907, guid: d5ccc9f061d086d4cb8d7fc9d7fc6e95,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 8631274959731401907, guid: d5ccc9f061d086d4cb8d7fc9d7fc6e95,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -90
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -48185,8 +48225,8 @@ MonoBehaviour:
   state: 0
   ToggleKey: 102
   FlashLightLight: {fileID: 5601856935299761536}
-  FlashLightOn_FX: {fileID: 0}
-  FlashLightOff_FX: {fileID: 0}
+  FlashLightOn_FX: {fileID: 8300000, guid: 032ee6dbf09c9484cad71c8cceffdc86, type: 3}
+  FlashLightOff_FX: {fileID: 8300000, guid: 032ee6dbf09c9484cad71c8cceffdc86, type: 3}
 --- !u!1 &1840752320
 GameObject:
   m_ObjectHideFlags: 0
