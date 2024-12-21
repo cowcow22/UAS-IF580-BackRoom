@@ -30,7 +30,7 @@ public class GenerationManager : MonoBehaviour
     [SerializeField] GameObject B_Room;
     [SerializeField] GameObject SpawnRoom, ExitRoom;
     [SerializeField] NavMeshSurface navMeshSurface; // Add this line
-    [SerializeField] GameObject DoggyObject;
+    [SerializeField] GameObject DoggyObject, PeanutObject;
     public List<GameObject> GeneratedRooms;
     [SerializeField] GameObject PlayerObject, MainCameraObject;
 
@@ -163,6 +163,8 @@ public class GenerationManager : MonoBehaviour
 
         DoggyObject.transform.position = new Vector3(exitRoom.transform.position.x, 1.8f, exitRoom.transform.position.z);
         DoggyObject.SetActive(true);
+        PeanutObject.transform.position = new Vector3(exitRoom.transform.position.x, 1.8f, exitRoom.transform.position.z);
+        PeanutObject.SetActive(true);
 
         PlayerObject.SetActive(true);
         MainCameraObject.SetActive(false);
