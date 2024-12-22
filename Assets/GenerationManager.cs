@@ -106,7 +106,7 @@ public class GenerationManager : MonoBehaviour
                         break;
 
                     case GenerationState.GeneratingBarrier:
-                        GenerateOutskirtsBarriers();
+                        // GenerateOutskirtsBarriers();
                         break;
                 }
                 currentPosTracker++;

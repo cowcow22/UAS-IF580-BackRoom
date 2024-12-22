@@ -6286,7 +6286,7 @@ MonoBehaviour:
   - {fileID: 2918836069471788909, guid: a7e9f2d432f2cb746a1957c91eef783d, type: 3}
   mapSize: 16
   E_Room: {fileID: 2918836069471788909, guid: 84bd1591cf091554bbee7030c3c3a7a1, type: 3}
-  B_Room: {fileID: 2918836069471788909, guid: 4a3296af2898dda4e9c3ddd0b8791843, type: 3}
+  B_Room: {fileID: 0}
   SpawnRoom: {fileID: 2918836069471788909, guid: 4e93d65fd9debf84dbf01b5ce7436c2b,
     type: 3}
   ExitRoom: {fileID: 2918836069471788909, guid: 46f2c0db68587e040a7bf82792648b83,
