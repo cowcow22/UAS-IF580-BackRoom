@@ -7,6 +7,7 @@ public class SCP096AI : MonoBehaviour
 {
     GameObject player;
     NavMeshAgent agent;
+    Animator animator;
     BoxCollider boxCollider;
     [SerializeField] LayerMask groundLayer, playerLayer;
     Vector3 destPoint;
@@ -18,23 +19,39 @@ public class SCP096AI : MonoBehaviour
     bool isPlayerLookingAtAI = false;
     bool isChasing = false;
 
+    [SerializeField] AudioSource chaseAudioSource;
+    [SerializeField] AudioSource attackAudioSource;
+
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         player = GameObject.Find("FPSController");
+        animator = GetComponent<Animator>();
         boxCollider = GetComponent<BoxCollider>();
     }
 
     void Update()
     {
+        playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, playerLayer);
         if (!isChasing)
         {
             CheckIfPlayerIsLooking();
             if (isPlayerLookingAtAI)
             {
+                if (playerInAttackRange)
+                {
+                    animator.SetBool("attack", true);
+                    Attack();
+                }
+                else if (!playerInAttackRange)
+                {
+                    animator.SetBool("attack", false);
+                }
                 StartCoroutine(StartChase());
             }
         }
+
+
     }
 
     void CheckIfPlayerIsLooking()
@@ -45,14 +62,23 @@ public class SCP096AI : MonoBehaviour
             if (hit.collider == boxCollider)
             {
                 isPlayerLookingAtAI = true;
+                animator.SetBool("idle", false);
+                animator.SetBool("chasing", true);
+
             }
             else
             {
                 isPlayerLookingAtAI = false;
+                animator.SetBool("idle", true);
+                animator.SetBool("chasing", false);
+
             }
         }
         else
         {
+
+            animator.SetBool("idle", true);
+            animator.SetBool("chasing", false);
             isPlayerLookingAtAI = false;
         }
     }
@@ -65,6 +91,10 @@ public class SCP096AI : MonoBehaviour
 
         while (chaseTimer < chaseDuration)
         {
+            animator.SetBool("idle", false);
+            animator.SetBool("chasing", true);
+            agent.isStopped = true;
+
             ChasePlayer();
             chaseTimer += Time.deltaTime;
             yield return null;
@@ -76,9 +106,32 @@ public class SCP096AI : MonoBehaviour
         CheckIfPlayerIsLooking();
         if (!isPlayerLookingAtAI)
         {
+            animator.SetBool("idle", true);
+            animator.SetBool("chasing", false);
             StopMoving();
         }
     }
+
+    void Attack()
+    {
+        agent.SetDestination(transform.position); // Berhenti saat menyerang
+
+        if (!animator.GetCurrentAnimatorStateInfo(0).IsName("attack"))
+        {
+            agent.isStopped = true;
+            animator.SetBool("attack", true);
+            Debug.Log("SCP096 Attacking Player!");
+
+            if (attackAudioSource != null && !attackAudioSource.isPlaying)
+            {
+                attackAudioSource.volume = 1f; // Volume tetap untuk attack
+                attackAudioSource.Play();
+            }
+
+
+        }
+    }
+
 
     void ChasePlayer()
     {
