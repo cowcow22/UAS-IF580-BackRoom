@@ -30,7 +30,9 @@ public class GenerationManager : MonoBehaviour
     [SerializeField] GameObject B_Room;
     [SerializeField] GameObject SpawnRoom, ExitRoom;
     [SerializeField] NavMeshSurface navMeshSurface; // Add this line
-    [SerializeField] GameObject DoggyObject, PeanutObject, SCP096;
+    [SerializeField] GameObject DoggyObject;
+    [SerializeField] GameObject PeanutObject_1, PeanutObject_2, PeanutObject_3;
+    [SerializeField] GameObject SCP096_1, SCP096_2, SCP096_3;
     public List<GameObject> GeneratedRooms;
     [SerializeField] GameObject PlayerObject, MainCameraObject;
 
@@ -161,15 +163,27 @@ public class GenerationManager : MonoBehaviour
 
         PlayerObject.transform.position = new Vector3(spawnRoom.transform.position.x, 1.8f, spawnRoom.transform.position.z);
 
-        int peanutSpawnRoom = Random.Range(0, GeneratedRooms.Count);
-        int scp096SpawnRoom = Random.Range(0, GeneratedRooms.Count);
+        int peanut_1SpawnRoom = Random.Range(0, GeneratedRooms.Count);
+        int peanut_2SpawnRoom = Random.Range(0, GeneratedRooms.Count);
+        int peanut_3SpawnRoom = Random.Range(0, GeneratedRooms.Count);
+        int scp096_1SpawnRoom = Random.Range(0, GeneratedRooms.Count);
+        int scp096_2SpawnRoom = Random.Range(0, GeneratedRooms.Count);
+        int scp096_3SpawnRoom = Random.Range(0, GeneratedRooms.Count);
 
         DoggyObject.transform.position = new Vector3(exitRoom.transform.position.x, 1.8f, exitRoom.transform.position.z);
         DoggyObject.SetActive(true);
-        PeanutObject.transform.position = new Vector3(GeneratedRooms[peanutSpawnRoom].transform.position.x, 1.8f, GeneratedRooms[peanutSpawnRoom].transform.position.z);
-        PeanutObject.SetActive(true);
-        SCP096.transform.position = new Vector3(GeneratedRooms[scp096SpawnRoom].transform.position.x, 1.8f, GeneratedRooms[scp096SpawnRoom].transform.position.z);
-        SCP096.SetActive(true);
+        PeanutObject_1.transform.position = new Vector3(GeneratedRooms[peanut_1SpawnRoom].transform.position.x, 1.8f, GeneratedRooms[peanut_1SpawnRoom].transform.position.z);
+        PeanutObject_1.SetActive(true);
+        PeanutObject_2.transform.position = new Vector3(GeneratedRooms[peanut_2SpawnRoom].transform.position.x, 1.8f, GeneratedRooms[peanut_2SpawnRoom].transform.position.z);
+        PeanutObject_2.SetActive(true);
+        PeanutObject_3.transform.position = new Vector3(GeneratedRooms[peanut_3SpawnRoom].transform.position.x, 1.8f, GeneratedRooms[peanut_3SpawnRoom].transform.position.z);
+        PeanutObject_3.SetActive(true);
+        SCP096_1.transform.position = new Vector3(GeneratedRooms[scp096_1SpawnRoom].transform.position.x, 1.8f, GeneratedRooms[scp096_1SpawnRoom].transform.position.z);
+        SCP096_1.SetActive(true);
+        SCP096_2.transform.position = new Vector3(GeneratedRooms[scp096_2SpawnRoom].transform.position.x, 1.8f, GeneratedRooms[scp096_2SpawnRoom].transform.position.z);
+        SCP096_2.SetActive(true);
+        SCP096_3.transform.position = new Vector3(GeneratedRooms[scp096_3SpawnRoom].transform.position.x, 1.8f, GeneratedRooms[scp096_3SpawnRoom].transform.position.z);
+        SCP096_3.SetActive(true);
 
         PlayerObject.SetActive(true);
         MainCameraObject.SetActive(false);
