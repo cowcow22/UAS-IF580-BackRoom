@@ -100,7 +100,7 @@ public class EnemyAIPatrol : MonoBehaviour
 
     void Chase()
     {
-        agent.speed = 3.5f;
+        agent.speed = 4f;
         agent.SetDestination(player.transform.position);
     }
 
@@ -169,22 +169,37 @@ public class EnemyAIPatrol : MonoBehaviour
     {
         float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
 
+        // Konfigurasi jarak maksimum dan minimum untuk suara
+        float maxDistance = sightRange; // Jarak maksimum di mana suara dapat terdengar
+        float minVolume = 0.5f; // Volume minimum
+        float maxVolume = 5f;   // Volume maksimum
+
         if (playerInSight && !playerInAttackRange)
         {
-            if (patrolAudioSource != null) patrolAudioSource.volume = 0;
-            if (chaseAudioSource != null) chaseAudioSource.volume = Mathf.Clamp(0.5f + (1f - distanceToPlayer / sightRange) * 0.5f, 0.5f, 1f);
+            // AI sedang mengejar pemain
+            if (patrolAudioSource != null) patrolAudioSource.volume = 0; // Matikan suara patroli
+            if (chaseAudioSource != null)
+            {
+                chaseAudioSource.volume = Mathf.Clamp(1 - (distanceToPlayer / maxDistance), minVolume, maxVolume);
+            }
         }
         else if (!playerInSight)
         {
-            if (chaseAudioSource != null) chaseAudioSource.volume = 0;
-            if (patrolAudioSource != null) patrolAudioSource.volume = Mathf.Clamp(0.5f + (1f - distanceToPlayer / sightRange) * 0.5f, 0.5f, 1f);
+            // AI sedang berpatroli
+            if (chaseAudioSource != null) chaseAudioSource.volume = 0; // Matikan suara mengejar
+            if (patrolAudioSource != null)
+            {
+                patrolAudioSource.volume = Mathf.Clamp(1 - (distanceToPlayer / maxDistance), minVolume, maxVolume);
+            }
         }
         else
         {
+            // Jika AI tidak sedang mengejar atau berpatroli
             if (chaseAudioSource != null) chaseAudioSource.volume = 0;
             if (patrolAudioSource != null) patrolAudioSource.volume = 0;
         }
     }
+
 
     // Fungsi untuk memproses tabrakan dengan pemain
     void OnTriggerEnter(Collider other)
@@ -239,4 +254,22 @@ public class EnemyAIPatrol : MonoBehaviour
             yield return null;
         }
     }
+
+    void OnDestroy()
+    {
+        // Hentikan semua audio yang terkait dengan AI
+        if (patrolAudioSource != null)
+        {
+            patrolAudioSource.Stop();
+        }
+        if (chaseAudioSource != null)
+        {
+            chaseAudioSource.Stop();
+        }
+        if (attackAudioSource != null)
+        {
+            attackAudioSource.Stop();
+        }
+    }
+
 }

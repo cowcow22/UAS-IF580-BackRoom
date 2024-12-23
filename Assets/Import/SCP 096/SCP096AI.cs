@@ -21,6 +21,8 @@ public class SCP096AI : MonoBehaviour
 
     [SerializeField] AudioSource chaseAudioSource;
     [SerializeField] AudioSource attackAudioSource;
+    [SerializeField] AudioSource idleAudioSource;
+    [SerializeField] AudioSource chaseStartAudioSource;
 
     void Start()
     {
@@ -28,11 +30,20 @@ public class SCP096AI : MonoBehaviour
         player = GameObject.Find("FPSController");
         animator = GetComponent<Animator>();
         boxCollider = GetComponent<BoxCollider>();
+
+        // Pastikan audio idle berjalan saat awal
+        if (idleAudioSource != null)
+        {
+            idleAudioSource.loop = true;
+            idleAudioSource.Play();
+        }
     }
 
     void Update()
     {
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, playerLayer);
+        // Update volume idle berdasarkan jarak
+        UpdateIdleAudioVolume();
         if (!isChasing)
         {
             CheckIfPlayerIsLooking();
@@ -50,9 +61,28 @@ public class SCP096AI : MonoBehaviour
                 StartCoroutine(StartChase());
             }
         }
-
-
     }
+
+    void UpdateIdleAudioVolume()
+    {
+        if (idleAudioSource != null)
+        {
+            // Hitung jarak antara AI dan player
+            float distance = Vector3.Distance(transform.position, player.transform.position);
+
+            // Atur parameter jarak dan volume
+            float maxDistance = 50f; // Jarak maksimum di mana suara masih terdengar
+            float minVolume = 0.5f;  // Volume minimum ketika player jauh
+            float maxVolume = 5f;    // Volume maksimum ketika player dekat
+
+            // Gunakan fungsi eksponensial untuk membuat suara lebih keras ketika mendekat
+            float volume = Mathf.Clamp((1 - Mathf.Pow(distance / maxDistance, 2)), minVolume / maxVolume, maxVolume);
+
+            // Set volume ke audio source
+            idleAudioSource.volume = volume;
+        }
+    }
+
 
     void CheckIfPlayerIsLooking()
     {
@@ -64,14 +94,27 @@ public class SCP096AI : MonoBehaviour
                 isPlayerLookingAtAI = true;
                 animator.SetBool("idle", false);
                 animator.SetBool("chasing", true);
+                // Berhenti memainkan suara Idle dan mulai mengejar
+                if (idleAudioSource != null && idleAudioSource.isPlaying)
+                {
+                    idleAudioSource.Stop();
+                }
 
+                if (chaseStartAudioSource != null && !chaseStartAudioSource.isPlaying)
+                {
+                    chaseStartAudioSource.Play();
+                }
             }
             else
             {
                 isPlayerLookingAtAI = false;
                 animator.SetBool("idle", true);
                 animator.SetBool("chasing", false);
-
+                // Pastikan suara Idle berjalan kembali
+                if (idleAudioSource != null && !idleAudioSource.isPlaying)
+                {
+                    idleAudioSource.Play();
+                }
             }
         }
         else
@@ -80,8 +123,14 @@ public class SCP096AI : MonoBehaviour
             animator.SetBool("idle", true);
             animator.SetBool("chasing", false);
             isPlayerLookingAtAI = false;
+            // Pastikan suara Idle berjalan kembali
+            if (idleAudioSource != null && !idleAudioSource.isPlaying)
+            {
+                idleAudioSource.Play();
+            }
         }
     }
+
 
     IEnumerator StartChase()
     {
@@ -93,7 +142,7 @@ public class SCP096AI : MonoBehaviour
         {
             animator.SetBool("idle", false);
             animator.SetBool("chasing", true);
-            agent.isStopped = true;
+            // agent.isStopped = true;
 
             ChasePlayer();
             chaseTimer += Time.deltaTime;
@@ -109,6 +158,11 @@ public class SCP096AI : MonoBehaviour
             animator.SetBool("idle", true);
             animator.SetBool("chasing", false);
             StopMoving();
+            // Pastikan suara Idle kembali diputar
+            if (idleAudioSource != null && !idleAudioSource.isPlaying)
+            {
+                idleAudioSource.Play();
+            }
         }
     }
 
