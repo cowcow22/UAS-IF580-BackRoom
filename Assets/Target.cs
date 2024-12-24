@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI; // Jika menggunakan NavMeshAgent
 
 public class Target : MonoBehaviour
 {
@@ -7,6 +8,9 @@ public class Target : MonoBehaviour
     [Header("Audio")]
     public AudioSource audioSource;   // AudioSource untuk memainkan suara
     public AudioClip deathSound;      // Klip suara mati
+
+    [Header("AI Movement")]
+    public NavMeshAgent navMeshAgent;
 
     public void TakeDamage(float amount)
     {
@@ -19,8 +23,12 @@ public class Target : MonoBehaviour
 
     void Die()
     {
+        // Nonaktifkan gerakan AI
+        DisableAIMovement();
+
         // Mainkan suara mati sebelum menghancurkan objek
         PlayDeathSound();
+
         // Panggil metode statis untuk memberi tahu bahwa SCP mati
         SCPCountManager.NotifySCPDied();
 
@@ -33,6 +41,15 @@ public class Target : MonoBehaviour
         if (audioSource != null && deathSound != null)
         {
             audioSource.PlayOneShot(deathSound);
+        }
+    }
+
+    void DisableAIMovement()
+    {
+        // Nonaktifkan NavMeshAgent jika digunakan
+        if (navMeshAgent != null)
+        {
+            navMeshAgent.isStopped = true;
         }
     }
 }

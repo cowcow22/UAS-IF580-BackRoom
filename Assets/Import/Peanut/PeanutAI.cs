@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 using UnityStandardAssets.Characters.FirstPerson;
 
 public class PeanutAI : MonoBehaviour
 {
     GameObject player;
     NavMeshAgent agent;
-    // Animator animator;
-    // MeshCollider meshCollider;
     BoxCollider boxCollider;
     [SerializeField] LayerMask groundLayer, playerLayer;
     Vector3 destPoint;
@@ -21,11 +20,18 @@ public class PeanutAI : MonoBehaviour
     bool playerInSight, playerInAttackRange;
     bool isPlayerLookingAtAI = false;
 
+    [SerializeField] private GameObject gameOverCanvas;
+    private bool isGameOver = false;
+    public TextMeshProUGUI LevelText;
+
+
     [Header("Audio")]
     public AudioSource audioSource;
     public AudioClip chaseSound;        // Suara ketika AI mengejar
     public AudioClip lookAtSound;      // Suara ketika AI dilihat
     public AudioClip startChaseSound;  // Suara ketika AI mulai mengejar
+    public AudioClip attackSound; // Suara ketika AI menyerang pemain
+
 
     private bool isChasingSoundPlaying = false;
     private bool isLookAtSoundPlaying = false;
@@ -41,10 +47,14 @@ public class PeanutAI : MonoBehaviour
         {
             audioSource = GetComponent<AudioSource>();
         }
+
+        LevelText.text = SceneManager.GetActiveScene().name; // Update level text
     }
 
     void Update()
     {
+        if (isGameOver) return; // Hentikan semua logika jika game over
+
         CheckIfPlayerIsLooking();
 
         if (isPlayerLookingAtAI)
@@ -57,7 +67,10 @@ public class PeanutAI : MonoBehaviour
             ChasePlayer();
             PlayStartChaseSound();
         }
+
+        CheckAttackPlayer();
     }
+
 
     void CheckIfPlayerIsLooking()
     {
@@ -85,6 +98,56 @@ public class PeanutAI : MonoBehaviour
         {
             agent.SetDestination(player.transform.position);
             PlayStartChaseSound();
+        }
+    }
+
+    void CheckAttackPlayer()
+    {
+        // Jika AI berada dalam jangkauan serangan
+        if (Vector3.Distance(transform.position, player.transform.position) <= attackRange)
+        {
+            TriggerGameOver();
+        }
+    }
+
+    void TriggerGameOver()
+    {
+        isGameOver = true;
+
+        // Hentikan pergerakan AI dan pemain
+        agent.isStopped = true;
+
+        var playerController = player.GetComponent<FirstPersonController>();
+        if (playerController != null)
+        {
+            playerController.enabled = false;
+        }
+
+        // Mainkan suara serangan jika ada
+        if (attackSound != null)
+        {
+            audioSource.clip = attackSound;
+            audioSource.loop = false; // Suara ini tidak diulang
+            audioSource.Play();
+        }
+
+        // Tampilkan canvas game over setelah sedikit delay
+        StartCoroutine(ShowGameOverCanvasAfterDelay());
+    }
+
+    // Coroutine untuk menunggu hingga suara serangan selesai (opsional)
+    IEnumerator ShowGameOverCanvasAfterDelay()
+    {
+        if (attackSound != null)
+        {
+            yield return new WaitForSeconds(attackSound.length); // Tunggu suara selesai
+        }
+
+        if (gameOverCanvas != null)
+        {
+            Cursor.visible = true; // Biar cursor muncul
+            Cursor.lockState = CursorLockMode.None; // Biar cursor bisa digerakin
+            gameOverCanvas.SetActive(true);
         }
     }
 
@@ -163,6 +226,15 @@ public class PeanutAI : MonoBehaviour
             // Reset status lainnya agar suara mengejar bisa diputar lagi jika AI kembali mengejar
             isStartChaseSoundPlayed = false;
             isChasingSoundPlaying = false;
+        }
+    }
+
+    void OnDestroy()
+    {
+        // Hentikan semua audio yang terkait dengan AI
+        if (audioSource != null)
+        {
+            audioSource.Stop();
         }
     }
 }

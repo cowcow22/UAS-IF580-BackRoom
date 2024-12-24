@@ -1153,25 +1153,20 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4033713941918249141, guid: 211ecf46463048d468a12109a461d196,
+    - target: {fileID: -8679921383154817045, guid: a9b1fd6fc3ca12b4b8f8c51f919070d4,
         type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0
+      propertyPath: m_LocalScale.x
+      value: 0.6
       objectReference: {fileID: 0}
-    - target: {fileID: 4033713941918249141, guid: 211ecf46463048d468a12109a461d196,
+    - target: {fileID: -8679921383154817045, guid: a9b1fd6fc3ca12b4b8f8c51f919070d4,
         type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 1
+      propertyPath: m_LocalScale.y
+      value: 0.6
       objectReference: {fileID: 0}
-    - target: {fileID: 4033713941918249141, guid: 211ecf46463048d468a12109a461d196,
+    - target: {fileID: -8679921383154817045, guid: a9b1fd6fc3ca12b4b8f8c51f919070d4,
         type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4033713941918249141, guid: 211ecf46463048d468a12109a461d196,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 180
+      propertyPath: m_LocalScale.z
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a9b1fd6fc3ca12b4b8f8c51f919070d4,
         type: 3}
@@ -1223,6 +1218,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a9b1fd6fc3ca12b4b8f8c51f919070d4,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: a9b1fd6fc3ca12b4b8f8c51f919070d4,
         type: 3}
       propertyPath: m_Name
@@ -1242,6 +1242,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: -13.98
+      objectReference: {fileID: 0}
+    - target: {fileID: 4033713941918249141, guid: 211ecf46463048d468a12109a461d196,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4033713941918249141, guid: 211ecf46463048d468a12109a461d196,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4033713941918249141, guid: 211ecf46463048d468a12109a461d196,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4033713941918249141, guid: 211ecf46463048d468a12109a461d196,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1319,6 +1339,11 @@ MonoBehaviour:
   attackRange: 2
   chaseAudioSource: {fileID: 0}
   attackAudioSource: {fileID: 0}
+  idleAudioSource: {fileID: 0}
+  panicAudioSource: {fileID: 0}
+  chaseStartAudioSource: {fileID: 0}
+  gameOverCanvas: {fileID: 0}
+  LevelText: {fileID: 0}
 --- !u!65 &237698738
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1338,7 +1363,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 2.76, z: 1}
+  m_Size: {x: 3, y: 4, z: 1}
   m_Center: {x: 0, y: 0.86, z: 0}
 --- !u!114 &237698740
 MonoBehaviour:
@@ -1353,6 +1378,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 2000
+  audioSource: {fileID: 0}
+  deathSound: {fileID: 0}
 --- !u!95 &237698741
 Animator:
   serializedVersion: 5
@@ -3401,6 +3428,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 1500
+  audioSource: {fileID: 0}
+  deathSound: {fileID: 0}
 --- !u!1 &663080384
 GameObject:
   m_ObjectHideFlags: 0
@@ -6614,6 +6643,13 @@ MonoBehaviour:
   range: 15
   sightRange: 25
   attackRange: 1
+  gameOverCanvas: {fileID: 0}
+  LevelText: {fileID: 0}
+  audioSource: {fileID: 0}
+  chaseSound: {fileID: 0}
+  lookAtSound: {fileID: 0}
+  startChaseSound: {fileID: 0}
+  attackSound: {fileID: 0}
 --- !u!65 &3928267806725321916
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6648,6 +6684,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 1000
+  audioSource: {fileID: 0}
+  deathSound: {fileID: 0}
 --- !u!1001 &6273116360217440612
 PrefabInstance:
   m_ObjectHideFlags: 0

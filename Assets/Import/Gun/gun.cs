@@ -11,7 +11,7 @@ public class gun : MonoBehaviour
 
     public int maxAmmo = 30;      // Maximum bullets in one magazine
     public int currentAmmo;      // Current bullets in the magazine
-    public float reloadTime = 3.5f; // Time required to reload
+    public float reloadTime = 3f; // Time required to reload
     private bool isReloading = false;
 
     public Camera fpsCam;
@@ -66,7 +66,11 @@ public class gun : MonoBehaviour
             return;
 
         currentAmmo--; // Kurangi peluru
-        muzzleFlash.Play(); // Putar muzzle flash ulang
+        if (!muzzleFlash.isPlaying)
+        {
+            muzzleFlash.Clear();
+            muzzleFlash.Play();
+        }
 
         if (gunshotSound != null && audioSource != null)
         {

@@ -1,7 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
+using UnityStandardAssets.Characters.FirstPerson;
 
 public class SCP096AI : MonoBehaviour
 {
@@ -23,6 +26,10 @@ public class SCP096AI : MonoBehaviour
     [SerializeField] AudioSource attackAudioSource;
     [SerializeField] AudioSource idleAudioSource;
     [SerializeField] AudioSource chaseStartAudioSource;
+    [SerializeField] GameObject gameOverCanvas;
+    private bool gameOverTriggered = false;
+    public TextMeshProUGUI LevelText;
+
 
     void Start()
     {
@@ -37,6 +44,13 @@ public class SCP096AI : MonoBehaviour
             idleAudioSource.loop = true;
             idleAudioSource.Play();
         }
+
+        if (gameOverCanvas != null)
+        {
+            gameOverCanvas.SetActive(false);
+        }
+
+        LevelText.text = SceneManager.GetActiveScene().name; // Update level text
     }
 
     void Update()
@@ -51,8 +65,7 @@ public class SCP096AI : MonoBehaviour
             {
                 if (playerInAttackRange)
                 {
-                    animator.SetBool("attack", true);
-                    Attack();
+                    StartCoroutine(HandleAttack());
                 }
                 else if (!playerInAttackRange)
                 {
@@ -131,39 +144,97 @@ public class SCP096AI : MonoBehaviour
         }
     }
 
-
     IEnumerator StartChase()
     {
+        // AI diam sementara untuk menyelesaikan animasi "panicend"
         isChasing = true;
-        float chaseDuration = 5f;
-        float chaseTimer = 0f;
 
-        while (chaseTimer < chaseDuration)
+        // Hentikan pergerakan AI selama animasi berlangsung
+        agent.isStopped = true;
+
+        // Aktifkan animasi "panicend"
+        animator.SetTrigger("panic");
+
+        // Tunggu hingga animasi "scp096_skeleton|panicend" selesai
+        while (!animator.GetCurrentAnimatorStateInfo(0).IsName("scp096_skeleton|panicend"))
         {
-            animator.SetBool("idle", false);
-            animator.SetBool("chasing", true);
-            // agent.isStopped = true;
-
-            ChasePlayer();
-            chaseTimer += Time.deltaTime;
+            Debug.Log("Waiting for panicend animation...");
             yield return null;
         }
 
-        isChasing = false;
-
-        // After 10 seconds, check if the player is still looking
-        CheckIfPlayerIsLooking();
-        if (!isPlayerLookingAtAI)
+        // Tunggu hingga animasi selesai
+        while (animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.7f)
         {
-            animator.SetBool("idle", true);
-            animator.SetBool("chasing", false);
-            StopMoving();
-            // Pastikan suara Idle kembali diputar
-            if (idleAudioSource != null && !idleAudioSource.isPlaying)
-            {
-                idleAudioSource.Play();
-            }
+            yield return null;
         }
+
+        Debug.Log("Animation complete. Starting to chase.");
+
+        // Setelah animasi selesai, mulai mengejar pemain
+        animator.SetBool("idle", false);
+        animator.SetBool("chasing", true);
+        agent.isStopped = false;
+
+        // Mulai suara mengejar
+        if (chaseAudioSource != null && !chaseAudioSource.isPlaying)
+        {
+            chaseAudioSource.Play();
+            Debug.Log("Chase audio started.");
+        }
+
+        while (isChasing)
+        {
+            ChasePlayer();
+
+            // Periksa apakah jarak ke pemain sudah terlalu jauh untuk mengejar atau player sudah dalam attack range
+            if (Vector3.Distance(transform.position, player.transform.position) > sightRange || playerInAttackRange)
+            {
+                isChasing = false;
+            }
+
+            yield return null;
+        }
+
+        // Jika pemain tidak lagi terlihat, AI kembali ke keadaan idle
+        animator.SetBool("chasing", false);
+        animator.SetBool("idle", true);
+        agent.isStopped = true;
+
+        // Hentikan suara mengejar
+        if (chaseAudioSource != null && chaseAudioSource.isPlaying)
+        {
+            chaseAudioSource.Stop();
+        }
+
+        // Periksa ulang apakah pemain masih melihat AI
+        CheckIfPlayerIsLooking();
+    }
+
+    private IEnumerator HandleAttack()
+    {
+        // Pastikan animasi serangan dimulai
+        animator.SetBool("attack", true);
+
+        // Nonaktifkan gerakan player
+        FindObjectOfType<FirstPersonController>().enabled = false;
+
+        // Tunggu hingga animasi selesai
+        while (!animator.GetCurrentAnimatorStateInfo(0).IsName("scp096_skeleton|attack1"))
+        {
+            Debug.Log("Waiting for attack animation...");
+            yield return null;
+        }
+
+        // Tunggu hingga animasi selesai
+        while (animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.7f)
+        {
+            yield return null;
+        }
+
+        Debug.Log("Animation complete. Starting to attack.");
+
+        // Setelah animasi selesai, lakukan serangan
+        Attack();
     }
 
     void Attack()
@@ -178,11 +249,13 @@ public class SCP096AI : MonoBehaviour
 
             if (attackAudioSource != null && !attackAudioSource.isPlaying)
             {
-                attackAudioSource.volume = 1f; // Volume tetap untuk attack
+                attackAudioSource.volume = 1f;
                 attackAudioSource.Play();
             }
-
-
+            if (!gameOverTriggered)
+            {
+                GameOver();
+            }
         }
     }
 
@@ -198,5 +271,62 @@ public class SCP096AI : MonoBehaviour
     void StopMoving()
     {
         agent.SetDestination(transform.position);
+    }
+
+    void GameOver()
+    {
+        gameOverTriggered = true;
+
+        // Hentikan pergerakan AI dan pemain
+        agent.isStopped = true;
+
+
+        // Tampilkan canvas GameOver
+        if (gameOverCanvas != null)
+        {
+            Cursor.visible = true; // Biar cursor muncul
+            Cursor.lockState = CursorLockMode.None; // Biar cursor bisa digerakin
+            gameOverCanvas.SetActive(true);
+
+            // Disable input untuk menekan tombol 'Esc' dengan memblokir fungsinya
+            StartCoroutine(DisableEscapeKey());
+        }
+
+        Debug.Log("Game Over!");
+    }
+
+    IEnumerator DisableEscapeKey()
+    {
+        // Mencegah fungsi Escape selama Game Over
+        while (gameOverCanvas.activeSelf)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                // Jangan lakukan apa-apa jika tombol 'Esc' ditekan
+                yield return null;
+            }
+            yield return null;
+        }
+    }
+
+    void OnDestroy()
+    {
+        // Hentikan semua audio yang terkait dengan AI
+        if (idleAudioSource != null)
+        {
+            idleAudioSource.Stop();
+        }
+        if (chaseAudioSource != null)
+        {
+            chaseAudioSource.Stop();
+        }
+        if (attackAudioSource != null)
+        {
+            attackAudioSource.Stop();
+        }
+        if (chaseStartAudioSource != null)
+        {
+            chaseStartAudioSource.Stop();
+        }
     }
 }

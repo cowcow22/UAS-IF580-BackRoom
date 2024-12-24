@@ -82,6 +82,7 @@ public class EnemyAIPatrol : MonoBehaviour
         UpdateAnimation();
         UpdateRotation();
         UpdateAudio();
+
         LevelText.text = SceneManager.GetActiveScene().name; // Update level text
     }
 

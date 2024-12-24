@@ -880,7 +880,7 @@ MonoBehaviour:
   nextTimeToFire: 0
   maxAmmo: 30
   currentAmmo: 0
-  reloadTime: 2
+  reloadTime: 3
   fpsCam: {fileID: 1779822076}
   muzzleFlash: {fileID: 1860695618}
   impactEffect: {fileID: 100002, guid: 3b1513bcb86426b4795879be6a128ed7, type: 3}
@@ -2158,6 +2158,21 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: a9b1fd6fc3ca12b4b8f8c51f919070d4,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a9b1fd6fc3ca12b4b8f8c51f919070d4,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a9b1fd6fc3ca12b4b8f8c51f919070d4,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a9b1fd6fc3ca12b4b8f8c51f919070d4,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: -47.347645
       objectReference: {fileID: 0}
@@ -2206,6 +2221,36 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a9b1fd6fc3ca12b4b8f8c51f919070d4,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -6200857289455878297, guid: a9b1fd6fc3ca12b4b8f8c51f919070d4,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: -6200857289455878297, guid: a9b1fd6fc3ca12b4b8f8c51f919070d4,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: -6200857289455878297, guid: a9b1fd6fc3ca12b4b8f8c51f919070d4,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: -6200857289455878297, guid: a9b1fd6fc3ca12b4b8f8c51f919070d4,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -6200857289455878297, guid: a9b1fd6fc3ca12b4b8f8c51f919070d4,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: a9b1fd6fc3ca12b4b8f8c51f919070d4,
         type: 3}
       propertyPath: m_Name
@@ -2220,6 +2265,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: SCP
+      objectReference: {fileID: 0}
+    - target: {fileID: 8124699529281843168, guid: a9b1fd6fc3ca12b4b8f8c51f919070d4,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4033713941918249141, guid: 211ecf46463048d468a12109a461d196,
         type: 3}
@@ -2292,11 +2342,13 @@ MonoBehaviour:
     m_Bits: 128
   range: 15
   sightRange: 25
-  attackRange: 2
+  attackRange: 5
   chaseAudioSource: {fileID: 702585131}
   attackAudioSource: {fileID: 1459239488}
   idleAudioSource: {fileID: 723816894}
   chaseStartAudioSource: {fileID: 126430664}
+  gameOverCanvas: {fileID: 2063543214}
+  LevelText: {fileID: 838068245}
 --- !u!195 &478106471
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2306,8 +2358,8 @@ NavMeshAgent:
   m_GameObject: {fileID: 478106469}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.78
-  m_Speed: 4
+  m_Radius: 1.5
+  m_Speed: 6
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -2315,7 +2367,7 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 2.22
+  m_Height: 3.4
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
@@ -2338,8 +2390,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 2.76, z: 1}
-  m_Center: {x: 0, y: 0.86, z: 0}
+  m_Size: {x: 3, y: 5, z: 1}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &478106473
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2352,9 +2404,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b25cc797eed7e1f4aa01d09743c15157, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 1000
+  health: 900
   audioSource: {fileID: 260065748}
   deathSound: {fileID: 8300000, guid: 88f7a3b9cbae44e4ca2048a824ac5c59, type: 3}
+  navMeshAgent: {fileID: 478106471}
 --- !u!95 &478106474
 Animator:
   serializedVersion: 5
@@ -2384,6 +2437,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: a9b1fd6fc3ca12b4b8f8c51f919070d4,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a9b1fd6fc3ca12b4b8f8c51f919070d4,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a9b1fd6fc3ca12b4b8f8c51f919070d4,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.6
+      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a9b1fd6fc3ca12b4b8f8c51f919070d4,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2433,6 +2501,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a9b1fd6fc3ca12b4b8f8c51f919070d4,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -6200857289455878297, guid: a9b1fd6fc3ca12b4b8f8c51f919070d4,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: -6200857289455878297, guid: a9b1fd6fc3ca12b4b8f8c51f919070d4,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: -6200857289455878297, guid: a9b1fd6fc3ca12b4b8f8c51f919070d4,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: -6200857289455878297, guid: a9b1fd6fc3ca12b4b8f8c51f919070d4,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -6200857289455878297, guid: a9b1fd6fc3ca12b4b8f8c51f919070d4,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: a9b1fd6fc3ca12b4b8f8c51f919070d4,
         type: 3}
@@ -2512,9 +2610,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b25cc797eed7e1f4aa01d09743c15157, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 1000
+  health: 900
   audioSource: {fileID: 260065748}
   deathSound: {fileID: 8300000, guid: 88f7a3b9cbae44e4ca2048a824ac5c59, type: 3}
+  navMeshAgent: {fileID: 482898046}
 --- !u!114 &482898045
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2535,11 +2634,13 @@ MonoBehaviour:
     m_Bits: 128
   range: 15
   sightRange: 25
-  attackRange: 2
+  attackRange: 5
   chaseAudioSource: {fileID: 702585131}
   attackAudioSource: {fileID: 1459239488}
   idleAudioSource: {fileID: 723816894}
   chaseStartAudioSource: {fileID: 126430664}
+  gameOverCanvas: {fileID: 2063543214}
+  LevelText: {fileID: 838068245}
 --- !u!195 &482898046
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2549,8 +2650,8 @@ NavMeshAgent:
   m_GameObject: {fileID: 482898043}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.78
-  m_Speed: 4
+  m_Radius: 1.5
+  m_Speed: 6
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -2558,7 +2659,7 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 2.22
+  m_Height: 3.4
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
@@ -2581,8 +2682,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 2.76, z: 1}
-  m_Center: {x: 0, y: 0.86, z: 0}
+  m_Size: {x: 3, y: 5, z: 1}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!95 &482898048
 Animator:
   serializedVersion: 5
@@ -2997,9 +3098,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b25cc797eed7e1f4aa01d09743c15157, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 500
+  health: 600
   audioSource: {fileID: 260065748}
   deathSound: {fileID: 8300000, guid: 88f7a3b9cbae44e4ca2048a824ac5c59, type: 3}
+  navMeshAgent: {fileID: 631582616}
 --- !u!114 &631582615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3021,10 +3123,13 @@ MonoBehaviour:
   range: 15
   sightRange: 25
   attackRange: 2
+  gameOverCanvas: {fileID: 2063543214}
+  LevelText: {fileID: 838068245}
   audioSource: {fileID: 734942096}
   chaseSound: {fileID: 8300000, guid: 6efebb8d7fee5be41966d8f249af22b2, type: 3}
   lookAtSound: {fileID: 8300000, guid: e168ae9eb7c2eef4ba76868a0a8fc38d, type: 3}
   startChaseSound: {fileID: 8300000, guid: dd3acec1891a2054ea39317bf833304c, type: 3}
+  attackSound: {fileID: 8300000, guid: 3e2dbf6fdd3a46349a6a050c2a11b083, type: 3}
 --- !u!195 &631582616
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -3256,7 +3361,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -8327,9 +8432,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b25cc797eed7e1f4aa01d09743c15157, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 500
+  health: 600
   audioSource: {fileID: 260065748}
   deathSound: {fileID: 8300000, guid: 88f7a3b9cbae44e4ca2048a824ac5c59, type: 3}
+  navMeshAgent: {fileID: 1751360258}
 --- !u!114 &1751360257
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8351,10 +8457,13 @@ MonoBehaviour:
   range: 15
   sightRange: 25
   attackRange: 2
+  gameOverCanvas: {fileID: 2063543214}
+  LevelText: {fileID: 838068245}
   audioSource: {fileID: 734942096}
   chaseSound: {fileID: 8300000, guid: 6efebb8d7fee5be41966d8f249af22b2, type: 3}
   lookAtSound: {fileID: 8300000, guid: e168ae9eb7c2eef4ba76868a0a8fc38d, type: 3}
   startChaseSound: {fileID: 8300000, guid: dd3acec1891a2054ea39317bf833304c, type: 3}
+  attackSound: {fileID: 8300000, guid: 3e2dbf6fdd3a46349a6a050c2a11b083, type: 3}
 --- !u!195 &1751360258
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -11677,6 +11786,7 @@ MonoBehaviour:
   health: 1500
   audioSource: {fileID: 260065748}
   deathSound: {fileID: 8300000, guid: 88f7a3b9cbae44e4ca2048a824ac5c59, type: 3}
+  navMeshAgent: {fileID: 2011840382}
 --- !u!1 &2062659262
 GameObject:
   m_ObjectHideFlags: 0
@@ -12183,6 +12293,21 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: a9b1fd6fc3ca12b4b8f8c51f919070d4,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a9b1fd6fc3ca12b4b8f8c51f919070d4,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a9b1fd6fc3ca12b4b8f8c51f919070d4,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a9b1fd6fc3ca12b4b8f8c51f919070d4,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: -47.347645
       objectReference: {fileID: 0}
@@ -12230,6 +12355,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a9b1fd6fc3ca12b4b8f8c51f919070d4,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -6200857289455878297, guid: a9b1fd6fc3ca12b4b8f8c51f919070d4,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: -6200857289455878297, guid: a9b1fd6fc3ca12b4b8f8c51f919070d4,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: -6200857289455878297, guid: a9b1fd6fc3ca12b4b8f8c51f919070d4,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: -6200857289455878297, guid: a9b1fd6fc3ca12b4b8f8c51f919070d4,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -6200857289455878297, guid: a9b1fd6fc3ca12b4b8f8c51f919070d4,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: a9b1fd6fc3ca12b4b8f8c51f919070d4,
         type: 3}
@@ -12309,9 +12464,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b25cc797eed7e1f4aa01d09743c15157, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 1000
+  health: 900
   audioSource: {fileID: 260065748}
   deathSound: {fileID: 8300000, guid: 88f7a3b9cbae44e4ca2048a824ac5c59, type: 3}
+  navMeshAgent: {fileID: 2141641962}
 --- !u!114 &2141641961
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12332,11 +12488,13 @@ MonoBehaviour:
     m_Bits: 128
   range: 15
   sightRange: 25
-  attackRange: 2
+  attackRange: 5
   chaseAudioSource: {fileID: 702585131}
   attackAudioSource: {fileID: 1459239488}
   idleAudioSource: {fileID: 723816894}
   chaseStartAudioSource: {fileID: 126430664}
+  gameOverCanvas: {fileID: 2063543214}
+  LevelText: {fileID: 838068245}
 --- !u!195 &2141641962
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -12346,8 +12504,8 @@ NavMeshAgent:
   m_GameObject: {fileID: 2141641959}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.78
-  m_Speed: 4
+  m_Radius: 1.5
+  m_Speed: 6
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -12355,7 +12513,7 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 2.22
+  m_Height: 3.4
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
@@ -12378,8 +12536,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 2.76, z: 1}
-  m_Center: {x: 0, y: 0.86, z: 0}
+  m_Size: {x: 3, y: 5, z: 1}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!95 &2141641964
 Animator:
   serializedVersion: 5
@@ -12597,10 +12755,13 @@ MonoBehaviour:
   range: 15
   sightRange: 25
   attackRange: 2
+  gameOverCanvas: {fileID: 2063543214}
+  LevelText: {fileID: 838068245}
   audioSource: {fileID: 734942096}
   chaseSound: {fileID: 8300000, guid: 6efebb8d7fee5be41966d8f249af22b2, type: 3}
   lookAtSound: {fileID: 8300000, guid: e168ae9eb7c2eef4ba76868a0a8fc38d, type: 3}
   startChaseSound: {fileID: 8300000, guid: dd3acec1891a2054ea39317bf833304c, type: 3}
+  attackSound: {fileID: 8300000, guid: 3e2dbf6fdd3a46349a6a050c2a11b083, type: 3}
 --- !u!195 &2147368801
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -12656,9 +12817,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b25cc797eed7e1f4aa01d09743c15157, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 500
+  health: 600
   audioSource: {fileID: 260065748}
   deathSound: {fileID: 8300000, guid: 88f7a3b9cbae44e4ca2048a824ac5c59, type: 3}
+  navMeshAgent: {fileID: 2147368801}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
