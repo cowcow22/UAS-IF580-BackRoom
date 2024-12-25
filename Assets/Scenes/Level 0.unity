@@ -17631,7 +17631,7 @@ MonoBehaviour:
   attackAudioSource: {fileID: 190843544}
   range: 15
   sightRange: 6
-  attackRange: 1.3
+  attackRange: 2
 --- !u!195 &669332830
 NavMeshAgent:
   m_ObjectHideFlags: 0

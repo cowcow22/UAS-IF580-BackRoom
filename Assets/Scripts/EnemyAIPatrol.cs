@@ -218,6 +218,9 @@ public class EnemyAIPatrol : MonoBehaviour
     {
         isJumpingToPlayer = true;
         agent.isStopped = true; // Hentikan pergerakan AI
+        FindObjectOfType<FirstPersonController>().enabled = false; // Biar player ga bisa gerak
+                                                                   // Buat kamera lock ke scp
+        Camera.main.transform.LookAt(transform.position + new Vector3(0, Camera.main.transform.position.y - 1, 0));
 
         // Panggil animasi lompat
         animator.SetTrigger("isJumping");
@@ -230,7 +233,6 @@ public class EnemyAIPatrol : MonoBehaviour
         if (gameOverCanvas != null)
         {
             animator.ResetTrigger("isJumping");
-            FindObjectOfType<FirstPersonController>().enabled = false; // Biar player ga bisa gerak
             Cursor.visible = true; // Biar cursor muncul
             Cursor.lockState = CursorLockMode.None; // Biar cursor bisa digerakin
             gameOverCanvas.SetActive(true);
