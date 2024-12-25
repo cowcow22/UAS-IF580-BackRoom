@@ -103,6 +103,9 @@ public class PeanutAI : MonoBehaviour
 
     void CheckAttackPlayer()
     {
+
+
+
         // Jika AI berada dalam jangkauan serangan
         if (Vector3.Distance(transform.position, player.transform.position) <= attackRange)
         {
@@ -112,6 +115,8 @@ public class PeanutAI : MonoBehaviour
 
     void TriggerGameOver()
     {
+        // make the camera lookat to scp, with y position same as player
+        Camera.main.transform.LookAt(transform.position + new Vector3(0, Camera.main.transform.position.y - 1, 0));
         isGameOver = true;
 
         // Hentikan pergerakan AI dan pemain

@@ -33,6 +33,8 @@ public class SCP096AI : MonoBehaviour
 
     void Start()
     {
+
+
         agent = GetComponent<NavMeshAgent>();
         player = GameObject.Find("FPSController");
         animator = GetComponent<Animator>();
@@ -65,11 +67,13 @@ public class SCP096AI : MonoBehaviour
             {
                 if (playerInAttackRange)
                 {
+                    animator.SetBool("stopAttack", false);
                     StartCoroutine(HandleAttack());
                 }
                 else if (!playerInAttackRange)
                 {
                     animator.SetBool("attack", false);
+                    animator.SetBool("stopAttack", true);
                 }
                 StartCoroutine(StartChase());
             }
@@ -100,6 +104,7 @@ public class SCP096AI : MonoBehaviour
     void CheckIfPlayerIsLooking()
     {
         Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
+
         if (Physics.Raycast(ray, out RaycastHit hit, sightRange))
         {
             if (hit.collider == boxCollider)
@@ -123,6 +128,7 @@ public class SCP096AI : MonoBehaviour
                 isPlayerLookingAtAI = false;
                 animator.SetBool("idle", true);
                 animator.SetBool("chasing", false);
+
                 // Pastikan suara Idle berjalan kembali
                 if (idleAudioSource != null && !idleAudioSource.isPlaying)
                 {
@@ -151,9 +157,6 @@ public class SCP096AI : MonoBehaviour
 
         // Hentikan pergerakan AI selama animasi berlangsung
         agent.isStopped = true;
-
-        // Aktifkan animasi "panicend"
-        animator.SetTrigger("panic");
 
         // Tunggu hingga animasi "scp096_skeleton|panicend" selesai
         while (!animator.GetCurrentAnimatorStateInfo(0).IsName("scp096_skeleton|panicend"))
@@ -215,8 +218,21 @@ public class SCP096AI : MonoBehaviour
         // Pastikan animasi serangan dimulai
         animator.SetBool("attack", true);
 
+        // Disable Gun Object in FirstPersonCharacter
+        GameObject gun = GameObject.Find("Gun");
+        Debug.Log("Gun: " + gun);
+        if (gun != null)
+        {
+            gun.SetActive(false);
+        }
+
         // Nonaktifkan gerakan player
         FindObjectOfType<FirstPersonController>().enabled = false;
+
+        // Buat kamera lock ke scp
+        Camera.main.transform.LookAt(transform.position + new Vector3(0, Camera.main.transform.position.y - 1, 0));
+
+        animator.SetBool("stopAttack", false);
 
         // Tunggu hingga animasi selesai
         while (!animator.GetCurrentAnimatorStateInfo(0).IsName("scp096_skeleton|attack1"))
@@ -233,6 +249,9 @@ public class SCP096AI : MonoBehaviour
 
         Debug.Log("Animation complete. Starting to attack.");
 
+
+
+
         // Setelah animasi selesai, lakukan serangan
         Attack();
     }
@@ -243,6 +262,7 @@ public class SCP096AI : MonoBehaviour
 
         if (!animator.GetCurrentAnimatorStateInfo(0).IsName("attack"))
         {
+
             agent.isStopped = true;
             animator.SetBool("attack", true);
             Debug.Log("SCP096 Attacking Player!");
@@ -279,7 +299,6 @@ public class SCP096AI : MonoBehaviour
 
         // Hentikan pergerakan AI dan pemain
         agent.isStopped = true;
-
 
         // Tampilkan canvas GameOver
         if (gameOverCanvas != null)
