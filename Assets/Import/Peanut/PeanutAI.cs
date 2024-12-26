@@ -178,6 +178,7 @@ public class PeanutAI : MonoBehaviour
         if (Vector3.Distance(transform.position, player.transform.position) <= sightRange && !isStartChaseSoundPlayed)
         {
             audioSource.clip = startChaseSound;
+            audioSource.volume = 1f;
             audioSource.loop = false; // Suara ini hanya dimainkan sekali
             audioSource.Play();
             isStartChaseSoundPlayed = true;

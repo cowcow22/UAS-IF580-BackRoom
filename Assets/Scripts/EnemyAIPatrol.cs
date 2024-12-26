@@ -20,6 +20,7 @@ public class EnemyAIPatrol : MonoBehaviour
     [SerializeField] AudioSource patrolAudioSource;
     [SerializeField] AudioSource chaseAudioSource;
     [SerializeField] AudioSource attackAudioSource;
+    [SerializeField] AudioSource ManScreaming;
 
     // Patrol
     Vector3 destPoint;
@@ -229,6 +230,7 @@ public class EnemyAIPatrol : MonoBehaviour
         Debug.Log("Jumping");
 
         // Tunggu hingga animasi selesai sebelum melanjutkan ke game over
+        ManScreaming.Play();
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
 
         // Setelah lompatan selesai, tampilkan Canvas GameOver

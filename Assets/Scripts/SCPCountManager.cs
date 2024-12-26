@@ -105,6 +105,7 @@ public class SCPCountManager : MonoBehaviour
         {
             winUICanvas.SetActive(true); // Tampilkan Canvas WinUI
             isWinUIActive = true; // Tandai bahwa WinUI aktif
+            Time.timeScale = 0;
 
             // Nonaktifkan kontrol player saat WinUI aktif
             if (playerController != null)

@@ -26,6 +26,7 @@ public class SCP096AI : MonoBehaviour
     [SerializeField] AudioSource attackAudioSource;
     [SerializeField] AudioSource idleAudioSource;
     [SerializeField] AudioSource chaseStartAudioSource;
+    [SerializeField] AudioSource ManScreaming;
     [SerializeField] GameObject gameOverCanvas;
     private bool gameOverTriggered = false;
     public TextMeshProUGUI LevelText;
@@ -267,6 +268,7 @@ public class SCP096AI : MonoBehaviour
             if (attackAudioSource != null && !attackAudioSource.isPlaying)
             {
                 attackAudioSource.volume = 1f;
+                ManScreaming.Play();
                 attackAudioSource.Play();
             }
             if (!gameOverTriggered)
