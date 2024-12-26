@@ -153,6 +153,7 @@ public class PeanutAI : MonoBehaviour
             Cursor.visible = true; // Biar cursor muncul
             Cursor.lockState = CursorLockMode.None; // Biar cursor bisa digerakin
             gameOverCanvas.SetActive(true);
+            StartCoroutine(DisableEscapeKey()); // Disable Escape key during Game Over
         }
     }
 
@@ -243,4 +244,24 @@ public class PeanutAI : MonoBehaviour
             audioSource.Stop();
         }
     }
+
+    IEnumerator DisableEscapeKey()
+        {
+            // Mencegah fungsi Escape selama Game Over
+            while (gameOverCanvas.activeSelf)
+            {
+                GameObject pauseGameManagerCanvas = GameObject.Find("Pause Game Manager");
+                if (pauseGameManagerCanvas != null)
+                {
+                    pauseGameManagerCanvas.SetActive(false);
+                }
+
+                if (Input.GetKeyDown(KeyCode.Escape))
+                {
+                    // Jangan lakukan apa-apa jika tombol 'Esc' ditekan
+                    yield return null;
+                }
+                yield return null;
+            }
+        }
 }

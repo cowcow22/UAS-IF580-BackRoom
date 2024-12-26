@@ -249,18 +249,24 @@ public class EnemyAIPatrol : MonoBehaviour
     }
 
     IEnumerator DisableEscapeKey()
-    {
-        // Mencegah fungsi Escape selama Game Over
-        while (gameOverCanvas.activeSelf)
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            // Mencegah fungsi Escape selama Game Over
+            while (gameOverCanvas.activeSelf)
             {
-                // Jangan lakukan apa-apa jika tombol 'Esc' ditekan
+                GameObject pauseGameManagerCanvas = GameObject.Find("Pause Game Manager");
+                if (pauseGameManagerCanvas != null)
+                {
+                    pauseGameManagerCanvas.SetActive(false);
+                }
+
+                if (Input.GetKeyDown(KeyCode.Escape))
+                {
+                    // Jangan lakukan apa-apa jika tombol 'Esc' ditekan
+                    yield return null;
+                }
                 yield return null;
             }
-            yield return null;
         }
-    }
 
     void OnDestroy()
     {
