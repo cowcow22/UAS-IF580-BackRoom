@@ -2138,6 +2138,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2501388843720695491, guid: e21ba3d5592dff041bc9fd381b924a68,
+        type: 3}
+      propertyPath: timeBetweenSaves
+      value: 60
+      objectReference: {fileID: 0}
     - target: {fileID: 5243856791499700865, guid: e21ba3d5592dff041bc9fd381b924a68,
         type: 3}
       propertyPath: m_Name
@@ -3098,7 +3103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b25cc797eed7e1f4aa01d09743c15157, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 600
+  health: 900
   audioSource: {fileID: 260065748}
   deathSound: {fileID: 8300000, guid: 88f7a3b9cbae44e4ca2048a824ac5c59, type: 3}
   navMeshAgent: {fileID: 631582616}
@@ -5730,6 +5735,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scpCountText: {fileID: 1842347174}
+  LevelText: {fileID: 1600686583}
   scpTag: SCP
   winUICanvas: {fileID: 857898057}
 --- !u!4 &1026883741
@@ -8437,7 +8443,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b25cc797eed7e1f4aa01d09743c15157, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 600
+  health: 900
   audioSource: {fileID: 260065748}
   deathSound: {fileID: 8300000, guid: 88f7a3b9cbae44e4ca2048a824ac5c59, type: 3}
   navMeshAgent: {fileID: 1751360258}
@@ -12822,7 +12828,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b25cc797eed7e1f4aa01d09743c15157, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 600
+  health: 900
   audioSource: {fileID: 260065748}
   deathSound: {fileID: 8300000, guid: 88f7a3b9cbae44e4ca2048a824ac5c59, type: 3}
   navMeshAgent: {fileID: 2147368801}

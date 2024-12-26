@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class SaveLevel : MonoBehaviour
 {
     public GameObject SaveGameUI;
-    [Range(1, 30)] public float timeBetweenSaves;
+    [Range(1, 60)] public float timeBetweenSaves;
 
     void Awake()
     {

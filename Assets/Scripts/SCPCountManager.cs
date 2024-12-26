@@ -9,6 +9,7 @@ public class SCPCountManager : MonoBehaviour
     public static SCPCountManager Instance; // Singleton
     private int scpCount; // Jumlah SCP yang masih hidup
     public TextMeshProUGUI scpCountText; // Referensi ke UI Text
+    public TextMeshProUGUI LevelText;
     public string scpTag = "SCP"; // Tag yang digunakan untuk mendeteksi SCP
 
     // Event untuk dipanggil ketika jumlah SCP berkurang
@@ -56,6 +57,7 @@ public class SCPCountManager : MonoBehaviour
         // Perbarui jumlah SCP
         scpCount = GameObject.FindGameObjectsWithTag(scpTag).Length;
         UpdateSCPCountUI();
+        LevelText.text = SceneManager.GetActiveScene().name; // Update level text
 
         // Jika WinUI aktif, blokir kontrol pemain
         if (isWinUIActive)
