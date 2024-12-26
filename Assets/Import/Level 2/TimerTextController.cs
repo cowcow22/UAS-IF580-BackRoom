@@ -9,6 +9,10 @@ public class TimerTextController : MonoBehaviour
     public float startTime = 60f; // Starting time in seconds
     public GameObject gameOverCanvas; // Assign your GameOverCanvas here
 
+    public ParticleSystem boomEffect;
+
+    [SerializeField] AudioSource ledakan;
+
     private float currentTime;
 
     void Start()
@@ -34,6 +38,16 @@ public class TimerTextController : MonoBehaviour
         {
             currentTime = 0; // Ensure it doesn't go below 0
             UpdateTimerText();
+            if (boomEffect != null && !boomEffect.isPlaying)
+            {
+                boomEffect.Clear();
+                boomEffect.Play();
+            }
+            if (ledakan != null)
+            {
+                ledakan.Play();
+            }
+            // ledakan.Play();
             TriggerGameOver(); // Show GameOverCanvas
         }
     }
@@ -69,6 +83,14 @@ public class TimerTextController : MonoBehaviour
             // Mencegah fungsi Escape selama Game Over
             while (gameOverCanvas.activeSelf)
             {
+                GameObject backsoundSirine = GameObject.Find("backsoundSirine");
+                GameObject buildUp = GameObject.Find("buildUpAmbient");
+                if (backsoundSirine != null && buildUp != null)
+                {
+                    backsoundSirine.SetActive(false);
+                    buildUp.SetActive(false);
+                }
+
                 GameObject pauseGameManagerCanvas = GameObject.Find("Pause Game Manager");
                 if (pauseGameManagerCanvas != null)
                 {

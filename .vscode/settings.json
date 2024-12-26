@@ -51,5 +51,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "testUAS.sln"
+    "dotnet.defaultSolution": "UAS-IF580-BackRoom.sln"
 }

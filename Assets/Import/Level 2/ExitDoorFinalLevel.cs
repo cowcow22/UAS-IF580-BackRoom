@@ -9,6 +9,11 @@ public class ExitDoorFinalLevel : MonoBehaviour
 {
     public GameObject WinUI;
     public TextMeshProUGUI LevelText;
+
+    [SerializeField] AudioSource menang;
+    [SerializeField] AudioSource backsoundSirine;
+    [SerializeField] AudioSource buildUp;
+
     public void OnTriggerEnter(Collider other)
     {
         this.GetComponent<BoxCollider>().enabled = false; // Biar player ga keluar > 1
@@ -25,6 +30,7 @@ public class ExitDoorFinalLevel : MonoBehaviour
                     timeManager.SetActive(false);
                 }
         StartCoroutine(DisableEscapeKey());
+        menang.Play();
     }
 
     private void Update()
@@ -37,10 +43,18 @@ public class ExitDoorFinalLevel : MonoBehaviour
             // Mencegah fungsi Escape selama Game Over
             while (WinUI.activeSelf)
             {
+                backsoundSirine.Stop();
+                buildUp.Stop();
                 GameObject pauseGameManagerCanvas = GameObject.Find("Pause Game Manager");
                 if (pauseGameManagerCanvas != null)
                 {
                     pauseGameManagerCanvas.SetActive(false);
+                }
+
+                GameObject timeManager = GameObject.Find("TimeManager");
+                if (timeManager != null)
+                {
+                    timeManager.SetActive(false);
                 }
 
                 if (Input.GetKeyDown(KeyCode.Escape))
