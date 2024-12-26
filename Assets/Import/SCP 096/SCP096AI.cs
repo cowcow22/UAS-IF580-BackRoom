@@ -249,9 +249,6 @@ public class SCP096AI : MonoBehaviour
 
         Debug.Log("Animation complete. Starting to attack.");
 
-
-
-
         // Setelah animasi selesai, lakukan serangan
         Attack();
     }

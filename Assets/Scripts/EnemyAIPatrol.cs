@@ -101,8 +101,10 @@ public class EnemyAIPatrol : MonoBehaviour
 
     void Chase()
     {
+        float speed = agent.velocity.magnitude;
         agent.speed = 4f;
         agent.SetDestination(player.transform.position);
+        animator.SetBool("isRunning", agent.speed == 4f && speed > 0.1f);
     }
 
     void Attack()
@@ -145,7 +147,7 @@ public class EnemyAIPatrol : MonoBehaviour
     {
         float speed = agent.velocity.magnitude;
         animator.SetBool("isWalking", speed > 0.1f && agent.speed < 3f);
-        animator.SetBool("isRunning", agent.speed == 3.5f && speed > 0.1f);
+        animator.SetBool("isRunning", agent.speed == 4f && speed > 0.1f);
 
         if (!playerInAttackRange)
         {
