@@ -5,7 +5,7 @@ using TMPro;
 using UnityStandardAssets.Characters.FirstPerson;
 using UnityEngine.SceneManagement;
 
-public class ExitDoorTrigger : MonoBehaviour
+public class ExitDoorFinalLevel : MonoBehaviour
 {
     public GameObject WinUI;
     public TextMeshProUGUI LevelText;
@@ -19,6 +19,11 @@ public class ExitDoorTrigger : MonoBehaviour
         Cursor.lockState = CursorLockMode.None; // Biar cursor bisa digerakin
 
         WinUI.SetActive(true); // Munculin UI Win
+        GameObject timeManager = GameObject.Find("Timer");
+            if (timeManager != null)
+                {
+                    timeManager.SetActive(false);
+                }
         StartCoroutine(DisableEscapeKey());
     }
 

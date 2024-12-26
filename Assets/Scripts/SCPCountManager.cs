@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using System.Collections;
 using UnityEngine.SceneManagement;
 using TMPro;
 using UnityStandardAssets.Characters.FirstPerson;
@@ -82,6 +83,7 @@ public class SCPCountManager : MonoBehaviour
         if (scpCount <= 0)
         {
             ActivateWinUI();
+            StartCoroutine(DisableEscapeKey());
         }
     }
 
@@ -118,4 +120,24 @@ public class SCPCountManager : MonoBehaviour
             Cursor.visible = true; // Tampilkan kursor
         }
     }
+
+    IEnumerator DisableEscapeKey()
+        {
+            // Mencegah fungsi Escape selama Game Over
+            while (winUICanvas.activeSelf)
+            {
+                GameObject pauseGameManagerCanvas = GameObject.Find("Pause Game Manager");
+                if (pauseGameManagerCanvas != null)
+                {
+                    pauseGameManagerCanvas.SetActive(false);
+                }
+
+                if (Input.GetKeyDown(KeyCode.Escape))
+                {
+                    // Jangan lakukan apa-apa jika tombol 'Esc' ditekan
+                    yield return null;
+                }
+                yield return null;
+            }
+        }
 }
