@@ -49354,14 +49354,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5e70cac3a8e11d49a9ec0ef4c16ede6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  batteryDrainRate: 0.5
+  batteryDrainRate: 0
   startBattery: 100
   currentBattery: 0
   state: 0
   ToggleKey: 102
   FlashLightLight: {fileID: 5601856935299761536}
-  FlashLightOn_FX: {fileID: 0}
-  FlashLightOff_FX: {fileID: 0}
+  FlashLightOn_FX: {fileID: 8300000, guid: 032ee6dbf09c9484cad71c8cceffdc86, type: 3}
+  FlashLightOff_FX: {fileID: 8300000, guid: 032ee6dbf09c9484cad71c8cceffdc86, type: 3}
 --- !u!1 &1845288240
 GameObject:
   m_ObjectHideFlags: 0
@@ -76085,7 +76085,7 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 1, g: 0.76551723, b: 0, a: 1}
-  m_Intensity: 10
+  m_Intensity: 100
   m_Range: 100
   m_SpotAngle: 100
   m_InnerSpotAngle: 50
